@@ -25,6 +25,11 @@
           <img src="../images/DesperadoLogo.png" alt="логотип" class="me-2" width="80" />
           <span class="text-light">History</span>
         </a>
+        <?php if (isset($_COOKIE['User'])): ?>
+          <form action="/components/logout.php" method="POST" class="d-flex">
+            <button class="btn btn-outline-danger" type="submit">Logout</button>
+          </form>
+        <?php endif; ?>
       </div>
     </nav>
 
@@ -55,7 +60,7 @@
       <div class="mt-5">
         <h2 class="text-center mb-4">Add New Post</h2>
         <form
-          action="profile.html"
+          action="profile.php"
           id="postForm"
           class="d-flex flex-column gap-3"
           method="POST"
@@ -114,3 +119,46 @@
     </script>
   </body>
 </html>
+
+
+
+<?php
+require_once('db.php');
+
+if (!isset($_COOKIE['User'])) {
+    header("Location: /components/login.php");
+    exit();
+}
+
+$link = mysqli_connect('127.0.0.1', 'root', 'root', 'first');
+
+if (isset($_POST['submit'])) {              
+    $title = $_POST['postTitle'];
+    $main_text = $_POST['postContent'];
+    if (!$title || !$main_text) die("no data post");
+
+    $imageName = "";
+
+
+    if (!empty($_FILES["file"]["name"]))
+    {
+        if (((@$_FILES["file"]["type"] == "image/gif") || (@$_FILES["file"]["type"] == "image/jpeg")
+            || (@$_FILES["file"]["type"] == "image/jpg") || (@$_FILES["file"]["type"] == "image/pjpeg")
+            || (@$_FILES["file"]["type"] == "image/x-png") || (@$_FILES["file"]["type"] == "image/png"))
+            && (@$_FILES["file"]["size"] < 10240000))
+        {
+            move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
+            $imageName = $_FILES["file"]["name"]; 
+            echo "Load in: " . "upload/" . $imageName;
+        }
+        else
+        {
+            echo "upload failed!";
+        }
+    }
+
+
+    $sql = "INSERT INTO posts (title, main_text, image) VALUES ('$title', '$main_text', '$imageName')";
+    if (!mysqli_query($link, $sql)) die("error insert data post");
+}
+?>

@@ -23,9 +23,9 @@
     >
       <div class="row">
         <div class="col-12 text-center">
-          <h1 class="mb-4">Login</h1>
+          <h1 class="mb-4">Registration</h1>
           <form
-            action="login.html"
+            action="registration.php"
             method="POST"
             class="d-flex flex-column gap-3"
           >
@@ -36,16 +36,22 @@
               placeholder="login"
             />
             <input
+              type="email"
+              name="email"
+              class="form-control-monsoon-input"
+              placeholder="email"
+            />
+            <input
               type="password"
               name="password"
               class="form-control-monsoon-input"
               placeholder="password"
             />
             <button class="btn btn-primary" type="submit" name="submit">
-              Login
+              Register
             </button>
             <p class="mt-3">
-              Don`t have an account? <a href="registration.html">Register</a>
+              Already have an account? <a href="login.php">Login</a>
             </p>
           </form>
         </div>
@@ -53,3 +59,30 @@
     </div>
   </body>
 </html>
+
+<?php
+require_once('db.php');
+
+if (isset($_COOKIE['User'])) {
+    header("Location: /components/profile.php");
+    exit();
+}
+
+$link = mysqli_connect('127.0.0.1', 'root', 'root', 'first');
+
+if (isset($_POST['submit'])) {
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $pass  = $_POST['password'];
+
+    if (!$login || !$email || !$pass) die("input all parameters");
+
+    $sql = "INSERT INTO users (username, email, password) VALUES ('$login', '$email', '$pass')";
+    if (!mysqli_query($link, $sql)) {
+        echo "error insert table users";
+    } else {
+        header("Location: /components/login.php");
+        exit();
+    }
+}
+?>
