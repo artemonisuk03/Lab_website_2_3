@@ -1,0 +1,91 @@
+body {
+    background-color: #000000;
+    color: #e60032;
+    font-family: "Courier New", monospace;
+}
+
+h1, h2 {
+    color: #e60032;
+    font-weight: bold;
+}
+
+a {
+    color: #e60032;
+}
+a:hover {
+    color: #ee4268;
+}
+
+.btn-primary {
+    background-color: #e60032;
+    border-color: #e60032;
+    color: #000000;
+    font-weight: bold;
+}
+.btn-primary:hover {
+    background-color: #e60032;
+    border-color: #e60032;
+    color: #000000;
+}
+
+.form-control-monsoon-input {
+    background-color: #111111;
+    color: #e60032;
+    border: 1px solid #e60032;
+    border-radius: 4px;
+    padding: 8px 10px;
+    width: 320px;
+    max-width: 100%;
+}
+.form-control-monsoon-input::placeholder {
+    color: #5a1a28;
+}
+.form-control-monsoon-input:focus {
+    outline: none;
+    box-shadow: 0 0 6px #e60032;
+}
+
+.col-12 form {
+    align-items: center;
+}
+.col-12 form .btn-primary {
+    width: 320px;
+    max-width: 100%;
+}
+
+.monsoon-input {
+    background-color: #111111;
+    color: #e60032;
+    border: 1px solid #e60032;
+}
+.monsoon-input::placeholder {
+    color: #af4c59;
+}
+.monsoon-input:focus {
+    background-color: #111111;
+    color: #e60032;
+    border-color: #e60032;
+    box-shadow: 0 0 6px #e60032;
+}
+.monsoon-input::file-selector-button {
+    background-color: #e60032;
+}
+
+.monsoon-img {
+    max-width: 300px;
+    border: 2px solid #e60032;
+    border-radius: 8px;
+    box-shadow: 0 0 12px #e60032;
+}
+
+.story-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.story-text {
+    max-width: 320px;
+    text-align: left;
+}
